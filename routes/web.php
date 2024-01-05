@@ -19,7 +19,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/file-uploads',[FileUploadController::class,'index'])->name('file-uploads.index');
+Route::post('/get-all-files',[FileUploadController::class,'getAllFile'])->name('file-uploads.getfile');
 Route::post('/file-uploads',[FileUploadController::class,'store'])->name('file-uploads.store');
-Route::delete('/file-uploads/{file_name}',[FileUploadController::class,'destroy'])->name('file-uploads.destroy');
-Route::get('/create-directory',[FileUploadController::class,'createDirectory'])->name('file-uploads.create-directory');
-Route::get('/delete-directory',[FileUploadController::class,'destroyDirectory'])->name('file-uploads.destroy-directory');
+Route::delete('/file-uploads',[FileUploadController::class,'destroy'])->name('file-uploads.destroy');
+Route::post('/create-directory',[FileUploadController::class,'createDirectory'])->name('file-uploads.create-directory');
+Route::post('/rename-directory',[FileUploadController::class,'renameDirectory'])->name('file-uploads.rename-directory');
+Route::delete('/delete-directory',[FileUploadController::class,'destroyDirectory'])->name('file-uploads.destroy-directory');
