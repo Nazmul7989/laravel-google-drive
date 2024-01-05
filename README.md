@@ -1,66 +1,192 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# laravel-google-drive-storage
+![gdrive](https://is4-ssl.mzstatic.com/image/thumb/Purple122/v4/d9/cb/a8/d9cba8b1-85a0-723a-3f03-bdc6b76476d5/logo_drive_2020q4_color-0-1x_U007emarketing-0-0-0-6-0-0-0-85-220.png/1200x630wa.png)
+This package allow to store and get data from google drive like S3 AWS in laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Support
+- php 8.1
+- laravel 10
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+You can install the package via composer:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+composer require yaza/laravel-google-drive-storage
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+copy to .env
+```env
+FILESYSTEM_CLOUD=google
+GOOGLE_DRIVE_CLIENT_ID=xxx.apps.googleusercontent.com
+GOOGLE_DRIVE_CLIENT_SECRET=xxx
+GOOGLE_DRIVE_REFRESH_TOKEN=xxx
+GOOGLE_DRIVE_FOLDER=
+```
+config filesystem.php
+```env
+'disks' => [
+    'google' => [
+      'driver' => 'google',
+      'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+      'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+      'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+      'folder' => env('GOOGLE_DRIVE_FOLDER'),
+    ]
+]
+```
 
-## Learning Laravel
+## Setup Google Keys
+- [Getting your Client ID and Secret](https://github.com/ivanvermeyen/laravel-google-drive-demo/blob/master/README/1-getting-your-dlient-id-and-secret.md)
+- [Getting your Refresh Token](https://github.com/ivanvermeyen/laravel-google-drive-demo/blob/master/README/2-getting-your-refresh-token.md)
+## Usage
+you can use storage driver function by laravel <br>
+example :
+```php
+ Storage::disk('google')->put($filename, File::get($filepath));
+```
+refrensi code opration [sample code](https://github.com/ivanvermeyen/laravel-google-drive-demo/blob/master/routes/web.php)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<br>
+or use helper from this package
+<br>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Put File
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```php
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
 
-## Laravel Sponsors
+Gdrive::put('location/filename.png', $request->file('file'));
+// or
+Gdrive::put('filename.png', public_path('path/filename.png'));
+``` 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Get File
 
-### Premium Partners
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+$data = Gdrive::get('path/filename.png');
+
+return response($data->file, 200)
+    ->header('Content-Type', $data->ext);
+```
+
+- Get Large File with stream
+
+```php
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+  $readStream = Gdrive::readStream('path/filename.png');
+
+return response()->stream(function () use ($readStream) {
+    fpassthru($readStream->file);
+}, 200, [
+    'Content-Type' => $readStream->ext,
+    //'Content-disposition' => 'attachment; filename="'.$filename.'"', // force download?
+]);
+```
+
+- download file
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+ $data = Gdrive::get('path/filename.png');
+        return response($data->file, 200)
+            ->header('Content-Type', $data->ext)
+            ->header('Content-disposition', 'attachment; filename="'.$data->filename.'"');
+```
+
+- delete
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+ Gdrive::delete('path/filename.png');
+```
+
+- delete directory
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+  Gdrive::deleteDir('foldername');
+```
+
+- make directory
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+  Gdrive::makeDir('foldername');
+```
+
+- rename directory
+```php 
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+  Gdrive::renameDir('oldfolderpath', 'newfolder');
+```
+
+- all folder & file
+```php
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+Gdrive::all('/');
+// or
+Gdrive::all('foldername');
+```
+output
+```php
+Illuminate\Support\Collection {#804 ▼ // app/Http/Controllers/UploadController.php:70
+  #items: array:3 [▼
+    0 => League\Flysystem\DirectoryAttributes {#798 ▶}
+    1 => League\Flysystem\FileAttributes {#796 ▶}
+    2 => League\Flysystem\DirectoryAttributes {#783 ▶}
+  ]
+  #escapeWhenCastingToString: false
+}
+```
+
+
+- all folder & file with sub folder
+```php
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
+Gdrive::all('/', true);
+// or
+Gdrive::all('foldername', true);
+```
+output
+```php
+Illuminate\Support\Collection {#804 ▼ // app/Http/Controllers/UploadController.php:70
+  #items: array:3 [▼
+    0 => League\Flysystem\DirectoryAttributes {#798 ▶}
+    1 => League\Flysystem\FileAttributes {#796 ▶}
+    2 => League\Flysystem\DirectoryAttributes {#783 ▶}
+  ]
+  #escapeWhenCastingToString: false
+}
+```
+
+## Limitations
+Using display paths as identifiers for folders and files requires them to be unique. Unfortunately Google Drive allows users to create files and folders with same (displayed) names. In such cases when unique path cannot be determined this adapter chooses the oldest (first) instance. In case the newer duplicate is a folder and user puts a unique file or folder inside the adapter will be able to reach it properly (because full path is unique).
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [yaza](https://github.com/yaza-putu)
+- [All Contributors](../../contributors)
+
+Thanks to [Masbug](https://github.com/masbug/flysystem-google-drive-ext)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

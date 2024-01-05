@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d71ad3b06a8e4a3503d0bdac172a9edb",
+    "content-hash": "b1ec7d27ea6400abfbe2ab60c89805f9",
     "packages": [
         {
             "name": "brick/math",
@@ -706,7 +706,7 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.329.0",
+            "version": "v0.330.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
@@ -744,7 +744,7 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.329.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.330.0"
             },
             "time": "2023-12-24T01:02:15+00:00"
         },
@@ -2129,6 +2129,66 @@
                 }
             ],
             "time": "2023-10-17T14:13:20+00:00"
+        },
+        {
+            "name": "masbug/flysystem-google-drive-ext",
+            "version": "v2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/masbug/flysystem-google-drive-ext.git",
+                "reference": "3947d39be212bff9cea95b2a5252e52c9eb36cc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/masbug/flysystem-google-drive-ext/zipball/3947d39be212bff9cea95b2a5252e52c9eb36cc0",
+                "reference": "3947d39be212bff9cea95b2a5252e52c9eb36cc0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "google/apiclient": "^2.2",
+                "guzzlehttp/guzzle": "^6.3 | ^7.0",
+                "guzzlehttp/psr7": "^1.7|^2.0",
+                "league/flysystem": "^2.1.1|^3.0",
+                "php": "^7.2 | ^8.0"
+            },
+            "require-dev": {
+                "league/flysystem-adapter-test-utilities": "^2.0|^3.0",
+                "phpunit/phpunit": "^8.0 | ^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Masbug\\Flysystem\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Naoki Sawada",
+                    "email": "hypweb@gmail.com"
+                },
+                {
+                    "name": "Mitja Spes",
+                    "email": "mitja@lxnav.com"
+                }
+            ],
+            "description": "Flysystem adapter for Google Drive with seamless virtual<=>display path translation",
+            "keywords": [
+                "Flysystem",
+                "extended",
+                "google-drive",
+                "laravel",
+                "translated"
+            ],
+            "support": {
+                "issues": "https://github.com/masbug/flysystem-google-drive-ext/issues",
+                "source": "https://github.com/masbug/flysystem-google-drive-ext/tree/v2.2.2"
+            },
+            "time": "2022-06-24T06:43:42+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3695,6 +3755,66 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.16.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-23T09:04:39+00:00"
         },
         {
             "name": "symfony/console",
@@ -6221,6 +6341,77 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yaza/laravel-google-drive-storage",
+            "version": "V2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yaza-putu/laravel-google-drive-storage.git",
+                "reference": "73e585f97ed29e3c27632aac3b746c61c22f2f7a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yaza-putu/laravel-google-drive-storage/zipball/73e585f97ed29e3c27632aac3b746c61c22f2f7a",
+                "reference": "73e585f97ed29e3c27632aac3b746c61c22f2f7a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0|^10.0",
+                "masbug/flysystem-google-drive-ext": "^2.2",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0|^7.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0|^8.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1|^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yaza\\LaravelGoogleDriveStorage\\LaravelGoogleDriveStorageServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelGoogleDriveStorage": "Yaza\\LaravelGoogleDriveStorage\\Facades\\LaravelGoogleDriveStorage"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yaza\\LaravelGoogleDriveStorage\\": "src",
+                    "Yaza\\LaravelGoogleDriveStorage\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yaza",
+                    "email": "wayan13yasa@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package laravel-google-drive-storage",
+            "homepage": "https://github.com/yaza-putu/laravel-google-drive-storage",
+            "keywords": [
+                "laravel-google-drive-storage"
+            ],
+            "support": {
+                "issues": "https://github.com/yaza-putu/laravel-google-drive-storage/issues",
+                "source": "https://github.com/yaza-putu/laravel-google-drive-storage/tree/V2.0.0"
+            },
+            "time": "2023-09-20T12:50:09+00:00"
         }
     ],
     "packages-dev": [
