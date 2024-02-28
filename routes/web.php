@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DrivePermissionController;
 use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,5 @@ Route::delete('/file-uploads',[FileUploadController::class,'destroy'])->name('fi
 Route::post('/create-directory',[FileUploadController::class,'createDirectory'])->name('file-uploads.create-directory');
 Route::post('/rename-directory',[FileUploadController::class,'renameDirectory'])->name('file-uploads.rename-directory');
 Route::delete('/delete-directory',[FileUploadController::class,'destroyDirectory'])->name('file-uploads.destroy-directory');
+
+Route::get('assign-permission',DrivePermissionController::class)->name('drive-permission');
