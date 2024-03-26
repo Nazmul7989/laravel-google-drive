@@ -28,4 +28,5 @@ Route::post('/rename-directory',[FileUploadController::class,'renameDirectory'])
 Route::delete('/delete-directory',[FileUploadController::class,'destroyDirectory'])->name('file-uploads.destroy-directory');
 
 Route::get('assign-permission',[DrivePermissionController::class,'store'])->name('assign-permission');
+Route::get('update-permission',[DrivePermissionController::class,'update'])->name('update-permission');
 Route::get('delete-permission',[DrivePermissionController::class,'destroy'])->name('delete-permission');
